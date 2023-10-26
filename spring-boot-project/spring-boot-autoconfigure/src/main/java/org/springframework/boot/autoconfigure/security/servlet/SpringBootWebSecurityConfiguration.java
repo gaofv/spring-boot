@@ -55,7 +55,7 @@ class SpringBootWebSecurityConfiguration {
 	 * security configuration.
 	 */
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnDefaultWebSecurity
+	@ConditionalOnDefaultWebSecurity // 用户没有自定义WebSecurityConfigurerAdapter和SecurityFilterChain时，才会创建
 	static class SecurityFilterChainConfiguration {
 
 		@Bean
@@ -71,6 +71,7 @@ class SpringBootWebSecurityConfiguration {
 
 	/**
 	 * Configures the {@link ErrorPageSecurityFilter}.
+	 * 注册过滤器ErrorPageSecurityFilter，用于处理失败请求
 	 */
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(WebInvocationPrivilegeEvaluator.class)
@@ -95,6 +96,9 @@ class SpringBootWebSecurityConfiguration {
 	 * already been added or if a bean with name
 	 * {@value BeanIds#SPRING_SECURITY_FILTER_CHAIN} has been configured by the user, this
 	 * will back-off.
+	 *
+	 * 不存在名字为springSecurityFilterChain的bean时才进行注册
+	 * 核心作用都在@EnableWebSecurity上，顾名思义，该注解用于开启security功能
 	 */
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnMissingBean(name = BeanIds.SPRING_SECURITY_FILTER_CHAIN)

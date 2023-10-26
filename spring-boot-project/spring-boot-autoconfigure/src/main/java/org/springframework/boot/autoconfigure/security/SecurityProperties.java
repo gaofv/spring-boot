@@ -46,12 +46,14 @@ public class SecurityProperties {
 	 * authentication for all or some of those endpoints the best thing to do is to add
 	 * your own WebSecurityConfigurerAdapter with lower order.
 	 */
+	// 用于在构建默认的SecurityFilterChain时，指定其顺序
 	public static final int BASIC_AUTH_ORDER = Ordered.LOWEST_PRECEDENCE - 5;
 
 	/**
 	 * Order applied to the WebSecurityCustomizer that ignores standard static resource
 	 * paths.
 	 */
+	// 用于在构建默认的WebSecurityCustomizer时，指定其顺序
 	public static final int IGNORED_ORDER = Ordered.HIGHEST_PRECEDENCE;
 
 	/**
@@ -59,10 +61,17 @@ public class SecurityProperties {
 	 * other filters registered with the container). There is no connection between this
 	 * and the {@code @Order} on a WebSecurityConfigurer.
 	 */
+	// 用于指定Security Fitler chain在servlet容器中的执行顺序
 	public static final int DEFAULT_FILTER_ORDER = OrderedFilter.REQUEST_WRAPPER_FILTER_MAX_ORDER - 100;
 
+	/**
+	 * 用于定义security fitler chain
+	 */
 	private final Filter filter = new Filter();
 
+	/**
+	 * spring security提供的默认用户
+	 */
 	private final User user = new User();
 
 	public User getUser() {

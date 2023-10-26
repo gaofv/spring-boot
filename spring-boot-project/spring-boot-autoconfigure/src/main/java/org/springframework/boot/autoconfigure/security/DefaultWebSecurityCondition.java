@@ -26,7 +26,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * {@link Condition} for
  * {@link ConditionalOnDefaultWebSecurity @ConditionalOnDefaultWebSecurity}.
- *
+ * 该类为条件类，为注解@ConditionalOnDefaultWebSecurity提供条件支持
  * @author Phillip Webb
  */
 class DefaultWebSecurityCondition extends AllNestedConditions {
@@ -35,11 +35,17 @@ class DefaultWebSecurityCondition extends AllNestedConditions {
 		super(ConfigurationPhase.REGISTER_BEAN);
 	}
 
+	/**
+	 * 条件1：环境中需包含SecurityFilterChain、HttpSecurity类
+	 */
 	@ConditionalOnClass({ SecurityFilterChain.class, HttpSecurity.class })
 	static class Classes {
 
 	}
 
+	/**
+	 * 条件2：环境中没有WebSecurityConfigurerAdapter和SecurityFilterChain类型的bean
+	 */
 	@ConditionalOnMissingBean({
 			org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.class,
 			SecurityFilterChain.class })

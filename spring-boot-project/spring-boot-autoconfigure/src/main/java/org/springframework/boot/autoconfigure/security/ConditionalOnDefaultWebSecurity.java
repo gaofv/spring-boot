@@ -34,6 +34,12 @@ import org.springframework.context.annotation.Conditional;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+/**
+ * 条件注解，只有当条件类都满足时，才能注册该bean
+ * 1.和@Component或者@Configuration配合使用，作用在类上
+ * 2.作为元注解
+ * 3.和@Bean注解一起使用，作用在方法上
+ */
 @Conditional(DefaultWebSecurityCondition.class)
 public @interface ConditionalOnDefaultWebSecurity {
 
